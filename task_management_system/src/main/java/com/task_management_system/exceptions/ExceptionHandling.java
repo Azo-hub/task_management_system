@@ -1,5 +1,6 @@
 package com.task_management_system.exceptions;
 
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.task_management_system.utilities.HttpCustomResponse;
 import jakarta.persistence.NoResultException;
 import org.slf4j.Logger;

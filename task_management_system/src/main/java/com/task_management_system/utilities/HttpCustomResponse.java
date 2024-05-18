@@ -18,7 +18,7 @@ public class HttpCustomResponse {
     }
 
     public HttpCustomResponse(int httpStatusCode, HttpStatus httpStatus, String reason, String message) {
-        this.timeStamp = new LocalDateTime();
+        this.timeStamp = LocalDateTime.now();
         this.httpStatusCode = httpStatusCode;
         this.httpStatus = httpStatus;
         this.reason = reason;
