@@ -11,7 +11,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-@Entity(name="user")
+@Entity(name="users")
 public class User {
     private String userId = UniqueRefUtil.generateUniqueRef(GeneralConstants.USER_ID_PREFIX, 13);
 
