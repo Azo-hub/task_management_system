@@ -6,7 +6,7 @@ import com.task_management_system.utilities.GeneralConstants;
 import com.task_management_system.utilities.UniqueRefUtil;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -17,12 +17,15 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, updatable = false)
     @JsonIgnore
     private long id;
 
     @Column(name = "password")
     @JsonIgnore
     private String password;
+
+    private String username;
 
     @Column(name = "firstname", length = 50)
     private String firstname;
@@ -41,18 +44,40 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @Column(name = "enabled", columnDefinition="BOOLEAN DEFAULT false")
-    private boolean enabled;
+    @Column(columnDefinition="BOOLEAN DEFAULT false")
+    private Boolean isAccountEnabled;
+
+    @Column(columnDefinition="BOOLEAN DEFAULT false")
+    private Boolean isAccountNonLocked;
 
     @Column(name = "activated", columnDefinition="BOOLEAN DEFAULT false")
     private boolean activated;
+
+    private Long failedAttempt;
+
+    private LocalDateTime lockTime;
+
+    private LocalDateTime dateJoined;
 
     @Column(name = "last_login_date")
     private LocalDateTime lastLoginDate;
 
     private LocalDateTime lastPasswordResetDate;
 
+    private String role;
+
+    private String[] authorities;
+
+
     public String getFullName() {
         return this.firstname + " " + this.lastname;
+    }
+
+    public boolean isAccountNonLocked() {
+        return isAccountNonLocked;
+    }
+
+    public boolean isAccountEnabled() {
+        return isAccountEnabled;
     }
 }
