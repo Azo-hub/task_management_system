@@ -7,6 +7,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.task_management_system.security.UserPrincipal;
 import com.task_management_system.utilities.SecurityConstant;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
@@ -20,11 +21,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 
 import static java.util.Arrays.stream;
-
+@RequiredArgsConstructor
 @Component
 public class JWTTokenProvider {
-    @Value("${jwt.secret}")
-    private String secret;
+
+    private final JwtProperties jwtProperties;
 
     /* method to generate the token */
 
@@ -35,7 +36,7 @@ public class JWTTokenProvider {
                 .withIssuedAt(new Date()).withSubject(userPrincipal.getUsername())
                 .withArrayClaim(SecurityConstant.AUTHORITIES, claims)
                 .withExpiresAt(new Date(System.currentTimeMillis() + SecurityConstant.EXPIRATION_TIME))
-                .sign(Algorithm.HMAC512(secret));
+                .sign(Algorithm.HMAC512(jwtProperties.secret()));
     }
 
 

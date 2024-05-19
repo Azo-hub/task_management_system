@@ -3,6 +3,7 @@ package com.task_management_system;
 import com.task_management_system.security.jwt.JwtAccessDeniedHandler;
 import com.task_management_system.security.jwt.JwtAuthenticationEntryPoint;
 import com.task_management_system.security.jwt.JwtAuthorizationFilter;
+import com.task_management_system.services.impl.UserSecurityService;
 import com.task_management_system.utilities.SecurityConstant;
 import com.task_management_system.utilities.SecurityUtility;
 import org.springframework.beans.factory.annotation.Autowired;

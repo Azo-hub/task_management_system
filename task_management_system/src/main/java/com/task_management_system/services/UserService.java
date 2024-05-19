@@ -1,4 +1,4 @@
 package com.task_management_system.services;
 
-public interface TaskService {
+public interface UserService {
 }
