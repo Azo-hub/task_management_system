@@ -2,6 +2,7 @@ package com.task_management_system.custom_login_handler;
 
 import com.task_management_system.domain.User;
 import com.task_management_system.services.UserService;
+import com.task_management_system.utilities.SecurityConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.authentication.LockedException;
@@ -24,7 +25,7 @@ public class CustomLoginFailureHandler {
 
             if (user != null) {
                 if (user.isAccountEnabled() && user.isAccountNonLocked()) {
-                    if (user.getFailedAttempt() < UserServiceImpl.MAX_FAILED_ATTEMPTS - 1) {
+                    if (user.getFailedAttempt() < SecurityConstant.LOGIN_MAX_FAILED_ATTEMPTS - 1) {
                         userService.increaseFailedAttempt(user);
                     }
 

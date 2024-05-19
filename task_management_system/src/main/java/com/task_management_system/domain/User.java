@@ -9,6 +9,7 @@ import jakarta.validation.constraints.Email;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @Entity(name="users")
@@ -52,7 +53,7 @@ public class User {
 
     private Long failedAttempt;
 
-    private LocalDateTime lockTime;
+    private Date lockTime;
 
     private LocalDateTime dateCreated;
 

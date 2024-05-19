@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -80,7 +82,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void lock(User user) {
         user.setIsAccountNonLocked(false);
-        user.setLockTime(LocalDateTime.now());
+        user.setLockTime(new Date());
         userRepository.save(user);
 
     }
@@ -88,7 +90,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean unlock(User user) {
 
-        long lockTimeInMillis = user.getLockTime().toLocalTime();
+        long lockTimeInMillis = user.getLockTime().getTime();
         long currentTimeInMillis = System.currentTimeMillis();
 
         if (lockTimeInMillis + SecurityConstant.LOGIN_LOCK_TIME_DURATION < currentTimeInMillis) {
