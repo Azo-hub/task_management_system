@@ -1,6 +1,7 @@
 package com.task_management_system.services.impl;
 
 import com.task_management_system.domain.User;
+import com.task_management_system.repository.UserRepository;
 import com.task_management_system.security.UserPrincipal;
 import com.task_management_system.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

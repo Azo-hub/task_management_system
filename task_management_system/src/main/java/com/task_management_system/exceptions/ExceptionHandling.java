@@ -57,6 +57,12 @@ public class ExceptionHandling implements ErrorController {
         return createHttpResponse(HttpStatus.UNAUTHORIZED, exception.getMessage());
     }
 
+    @ExceptionHandler(UsernameExistException.class)
+    public ResponseEntity<HttpCustomResponse> usernameExistException(UsernameExistException exception) {
+
+        return createHttpResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
     @ExceptionHandler(TokenExpiredException.class)
     public ResponseEntity<HttpCustomResponse> tokenExpiredException(TokenExpiredException exception) {
 
