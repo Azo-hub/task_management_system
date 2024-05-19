@@ -1,6 +1,7 @@
 package com.task_management_system.domain;
 
 import com.task_management_system.Auditable;
+import com.task_management_system.enums.Priority;
 import com.task_management_system.utilities.SchemaConstants;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -24,8 +25,8 @@ public class Task extends Auditable<String> {
     private String priority;
     private LocalDateTime dueDate;
     private boolean completed = false;
-    private String createdAt;
-    private String updatedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
     private LocalDateTime completedAt;
 
 }
