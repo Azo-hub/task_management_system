@@ -40,6 +40,15 @@ public class TaskController {
         return response(HttpStatus.OK, "Task deleted Successfully!");
     }
 
+    @PostMapping("/{id}")
+    public ResponseEntity<HttpCustomResponse> setTaskCompletion(@PathVariable("id") Long id, @RequestParam("completeStatus") Boolean status) {
+        Boolean completed = taskService.setTaskCompletion(id, status);
+        if(completed){
+            return response(HttpStatus.OK,"Completion Status Set Successfully");
+        }
+        return response(HttpStatus.NOT_IMPLEMENTED,"Failed to set completion status");
+    }
+
 
 
     private ResponseEntity<HttpCustomResponse> response(HttpStatus httpStatus, String message) {

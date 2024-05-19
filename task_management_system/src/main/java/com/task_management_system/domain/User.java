@@ -20,7 +20,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false)
     @JsonIgnore
-    private long id;
+    private Long id;
 
     @Column(name = "password")
     @JsonIgnore

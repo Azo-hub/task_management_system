@@ -11,4 +11,5 @@ public interface TaskService {
     Task createTask(TaskDto taskDto);
     Task updateTask(Long id, TaskDto taskDto);
     void deleteTask(Long id);
+    Boolean setTaskCompletion(Long id, Boolean status);
 }

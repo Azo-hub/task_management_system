@@ -1,6 +1,7 @@
 package com.task_management_system.services.impl;
 
 import com.task_management_system.domain.User;
+import com.task_management_system.dto.LoginRequest;
 import com.task_management_system.enums.Role;
 import com.task_management_system.exceptions.EmailExistException;
 import com.task_management_system.exceptions.UserNotFoundException;
@@ -8,6 +9,7 @@ import com.task_management_system.exceptions.UsernameExistException;
 import com.task_management_system.repository.UserRepository;
 import com.task_management_system.services.UserService;
 import com.task_management_system.utilities.SecurityConstant;
+import com.task_management_system.utilities.SecurityUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,11 +40,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User createUser(String email, String username, String role)
+    public User createUser(String email, String username, String password, String role)
             throws UsernameExistException, UserNotFoundException, EmailExistException {
-        /*Validate if user do not already exist */
-        validateNewUsernameAndEmail("", username, email);
 
+        /*Validate if user do not already exist*/
+        validateNewUsernameAndEmail("", username, email);
 
         /*Start creating a new user*/
         User user = new User();
@@ -52,6 +54,9 @@ public class UserServiceImpl implements UserService {
         user.setIsAccountEnabled(true);
         user.setFailedAttempt((long) 0);
         user.setDateCreated(LocalDateTime.now());
+        String encryptedPassword = SecurityUtility.passwordEncoder().encode(password);
+        user.setPassword(encryptedPassword);
+
 
         if (!role.trim().isEmpty() && role.equals("USER")) {
 
@@ -123,4 +128,55 @@ public class UserServiceImpl implements UserService {
     public void deleteUserById(Long userId) {
         userRepository.deleteById(userId);
     }
+
+
+
+    private User validateNewUsernameAndEmail(String currentUsername, String newUsername, String email)
+            throws UsernameExistException, UserNotFoundException, EmailExistException {
+
+        User userByNewUsername = findByUsername(newUsername);
+        User userByEmail = findByEmail(email);
+
+        if (!currentUsername.trim().isEmpty()) {
+
+            User localUser = findByUsername(currentUsername);
+
+            if (localUser == null) {
+
+                throw new UserNotFoundException("No user found by username " + currentUsername);
+            }
+
+            if (userByNewUsername != null && !localUser.getId().equals(userByNewUsername.getId())) {
+
+                throw new UsernameExistException("Username already exists");
+
+            }
+
+            if (userByEmail != null && !localUser.getId().equals(userByEmail.getId())) {
+
+                throw new EmailExistException("Email already exists");
+
+            }
+
+            return localUser;
+
+        } else {
+
+            if (userByNewUsername != null) {
+
+                throw new UsernameExistException("Username already exists");
+
+            }
+
+            if (userByEmail != null) {
+
+                throw new EmailExistException("Email already exists");
+
+            }
+
+            return null;
+
+        }
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.task_management_system.services;
 
 import com.task_management_system.domain.User;
+import com.task_management_system.dto.LoginRequest;
 import com.task_management_system.exceptions.EmailExistException;
 import com.task_management_system.exceptions.UserNotFoundException;
 import com.task_management_system.exceptions.UsernameExistException;
@@ -25,9 +26,10 @@ public interface UserService {
 
     Optional<User> findUserById(Long id);
 
-    User createUser(String email, String username, String role)
+    User createUser(String email, String username, String password, String role)
             throws UsernameExistException, UserNotFoundException, EmailExistException;
 
     void deleteUserById(Long userId);
+
 
 }

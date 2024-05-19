@@ -58,6 +58,18 @@ public class TaskServiceImpl implements TaskService {
         taskRepository.deleteById(id);
     }
 
+    @Override
+    public Boolean setTaskCompletion(Long id, Boolean status) {
+        Optional<Task> task = taskRepository.findById(id);
+        if(task.isPresent()) {
+            task.get().setCompleted(Objects.nonNull(status) ? status : task.get().isCompleted());
+            taskRepository.save(task.get());
+            return true;
+        }
+
+        return false;
+    }
+
 
     private LocalDateTime convertStringToLocalDateTime(String dueDate) {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
