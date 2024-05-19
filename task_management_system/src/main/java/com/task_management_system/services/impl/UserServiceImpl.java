@@ -7,6 +7,8 @@ import com.task_management_system.exceptions.UserNotFoundException;
 import com.task_management_system.exceptions.UsernameExistException;
 import com.task_management_system.repository.UserRepository;
 import com.task_management_system.services.UserService;
+import com.task_management_system.utilities.SecurityConstant;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -14,8 +16,6 @@ import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
-    public static final int MAX_FAILED_ATTEMPTS = 4;
-    private static final long LOCK_TIME_DURATION = 24 * 60 * 60 * 1000;
 
     @Autowired
     private UserRepository userRepository;
@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
         long lockTimeInMillis = user.getLockTime().toLocalTime();
         long currentTimeInMillis = System.currentTimeMillis();
 
-        if (lockTimeInMillis + LOCK_TIME_DURATION < currentTimeInMillis) {
+        if (lockTimeInMillis + SecurityConstant.LOGIN_LOCK_TIME_DURATION < currentTimeInMillis) {
 
             user.setIsAccountNonLocked(true);
             user.setLockTime(null);
@@ -108,7 +108,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void resetFailedAttempts(String username) {
-
         userRepository.updateFailedAttempt(0, username);
 
     }

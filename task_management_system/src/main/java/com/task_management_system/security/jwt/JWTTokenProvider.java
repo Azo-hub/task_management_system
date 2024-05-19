@@ -35,7 +35,7 @@ public class JWTTokenProvider {
                 .withAudience(SecurityConstant.TASK_MANAGEMENT_SYSTEM_ADMIN)
                 .withIssuedAt(new Date()).withSubject(userPrincipal.getUsername())
                 .withArrayClaim(SecurityConstant.AUTHORITIES, claims)
-                .withExpiresAt(new Date(System.currentTimeMillis() + SecurityConstant.EXPIRATION_TIME))
+                .withExpiresAt(new Date(System.currentTimeMillis() + SecurityConstant.JWT_EXPIRATION_TIME))
                 .sign(Algorithm.HMAC512(jwtProperties.secret()));
     }
 
