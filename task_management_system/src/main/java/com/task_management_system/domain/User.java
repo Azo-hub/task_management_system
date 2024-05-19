@@ -50,14 +50,11 @@ public class User {
     @Column(columnDefinition="BOOLEAN DEFAULT false")
     private Boolean isAccountNonLocked;
 
-    @Column(name = "activated", columnDefinition="BOOLEAN DEFAULT false")
-    private boolean activated;
-
     private Long failedAttempt;
 
     private LocalDateTime lockTime;
 
-    private LocalDateTime dateJoined;
+    private LocalDateTime dateCreated;
 
     @Column(name = "last_login_date")
     private LocalDateTime lastLoginDate;

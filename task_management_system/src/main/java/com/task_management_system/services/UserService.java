@@ -5,6 +5,8 @@ import com.task_management_system.exceptions.EmailExistException;
 import com.task_management_system.exceptions.UserNotFoundException;
 import com.task_management_system.exceptions.UsernameExistException;
 
+import java.util.Optional;
+
 public interface UserService {
 
     User findByUsername(String username);
@@ -21,7 +23,7 @@ public interface UserService {
 
     void resetFailedAttempts(String username);
 
-    User findUserById(Long id);
+    Optional<User> findUserById(Long id);
 
     User createUser(String email, String username, String role)
             throws UsernameExistException, UserNotFoundException, EmailExistException;
