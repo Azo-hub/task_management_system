@@ -23,7 +23,7 @@ public class Task extends Auditable<String> {
     private String description;
 
     private String priority;
-    private LocalDateTime dueDate;
+
     private boolean completed = false;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

@@ -31,26 +31,23 @@ public class TaskServiceImpl implements TaskService {
         task.setTitle(taskDto.getTitle());
         task.setDescription(taskDto.getDescription());
         task.setPriority(taskDto.getPriority());
-        task.setDueDate(convertStringToLocalDateTime(taskDto.getDueDate()));
         task.setCreatedAt(LocalDateTime.now());
 
-        return task;
+        return taskRepository.save(task);
     }
 
     @Override
     public Task updateTask(Long id, TaskDto taskDto) {
         Optional<Task> task = taskRepository.findById(id);
-        task.ifPresent(updatedTask -> {
-            updatedTask.setTitle(Objects.nonNull(taskDto.getTitle()) ? taskDto.getTitle() : task.get().getTitle());
-            updatedTask.setDescription(Objects.nonNull(taskDto.getDescription()) ? taskDto.getDescription() : task.get().getDescription());
-            updatedTask.setPriority(Objects.nonNull(taskDto.getPriority()) ? taskDto.getPriority() : task.get().getPriority());
-            updatedTask.setDueDate(Objects.nonNull(taskDto.getDueDate()) ? convertStringToLocalDateTime(taskDto.getDueDate()) : task.get().getDueDate());
-            updatedTask.setUpdatedAt(LocalDateTime.now());
-            taskRepository.save(task.get());
-            });
+        if(task.isPresent()) {
+            task.get().setTitle(Objects.nonNull(taskDto.getTitle()) ? taskDto.getTitle() : task.get().getTitle());
+            task.get().setDescription(Objects.nonNull(taskDto.getDescription()) ? taskDto.getDescription() : task.get().getDescription());
+            task.get().setPriority(Objects.nonNull(taskDto.getPriority()) ? taskDto.getPriority() : task.get().getPriority());
+            task.get().setUpdatedAt(LocalDateTime.now());
 
+        }
 
-        return task.orElse(null);
+        return taskRepository.save(task.get());
     }
 
     @Override
@@ -71,10 +68,6 @@ public class TaskServiceImpl implements TaskService {
     }
 
 
-    private LocalDateTime convertStringToLocalDateTime(String dueDate) {
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return LocalDateTime.parse(dueDate, format);
-    }
 
 
 

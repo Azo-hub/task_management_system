@@ -11,7 +11,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/taskmanagement?serverTimezone=UTC
     name: taskmanagement
 
-    password: Pureand@applied1
+    password: ***********
     username: postgres
 
 

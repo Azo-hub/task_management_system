@@ -45,7 +45,7 @@ public class TaskController {
 
     @Operation(
             description = "Create task endpoint",
-            summary = "returns task created",
+            summary = "returns task created, Priority level can be LOW, MEDIUM, HIGH.",
             responses = {
                     @ApiResponse(
                             description = "Success",
@@ -71,7 +71,7 @@ public class TaskController {
 
     )
     @PatchMapping("/{id}")
-    public ResponseEntity<Task> updateTask(@PathVariable("id") Long id, TaskDto taskDto) {
+    public ResponseEntity<Task> updateTask(@PathVariable("id") Long id, @RequestBody TaskDto taskDto) {
         return new ResponseEntity<>(taskService.updateTask(id,taskDto), HttpStatus.OK);
     }
 
@@ -86,7 +86,7 @@ public class TaskController {
             }
 
     )
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasAnyAuthority('user:delete')")
     public ResponseEntity<HttpCustomResponse> deleteTask(@PathVariable("id") Long id) {
         taskService.deleteTask(id);
@@ -104,7 +104,7 @@ public class TaskController {
             }
 
     )
-    @PostMapping("/{id}")
+    @PostMapping("/taskCompletion/{id}")
     public ResponseEntity<HttpCustomResponse> setTaskCompletion(@PathVariable("id") Long id, @RequestParam("completeStatus") Boolean status) {
         Boolean completed = taskService.setTaskCompletion(id, status);
         if(completed){
