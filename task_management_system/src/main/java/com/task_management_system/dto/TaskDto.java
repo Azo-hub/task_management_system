@@ -16,6 +16,5 @@ public class TaskDto {
     @NotBlank(message = "priority is required")
     private String priority;
 
-    @NotBlank(message = "dueDate is required")
-    private String dueDate;
+
 }
