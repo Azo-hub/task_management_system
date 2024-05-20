@@ -11,7 +11,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/taskmanagement?serverTimezone=UTC
     name: taskmanagement
 
-    password: **************
+    password: Pureand@applied1
     username: postgres
 
 
@@ -24,8 +24,5 @@ spring:
 
 
 jwt:
-  header: Authorization
   secret: lYRdHOiWzUXcGXxScjHf3r7NiPopxrsUtrslYRdHOiWzUXcGXxScjHf3r7NiPopxrsUtrs
-  token_validity_in_seconds: 86400
-  token_validity_in_seconds_for_remember_me: 108000
 
