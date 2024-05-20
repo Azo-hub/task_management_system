@@ -11,6 +11,10 @@ import com.task_management_system.security.jwt.JWTTokenProvider;
 import com.task_management_system.services.UserService;
 import com.task_management_system.utilities.SecurityConstant;
 import com.task_management_system.utilities.SecurityUtility;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -24,6 +28,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 
+@SecurityRequirement(name = "bearerAuth")
+@Tag(name = "Users")
 @RestController
 public class UserController {
     @Autowired
@@ -35,8 +41,18 @@ public class UserController {
     @Autowired
     private JWTTokenProvider jWTTokenProvider;
 
+    @Operation(
+            description = "Create a new user endpoint",
+            summary = "create a new user by taking userDto, the user role is either USER or ADMIN.",
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200"
+                    )
+            }
 
-    @PostMapping("/newUser")
+    )
+    @PostMapping("/signUp")
     public ResponseEntity<User> newUserPost(@RequestBody @Valid UserDto userDto)
             throws UsernameExistException, UserNotFoundException, EmailExistException {
 
@@ -47,7 +63,17 @@ public class UserController {
 
     }
 
+    @Operation(
+            description = "Login endpoint",
+            summary = "returning an authenticated user with the bearer token as a header",
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200"
+                    )
+            }
 
+    )
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody @Valid LoginRequest loginRequest) {
         authenticate(loginRequest.getUsername(), loginRequest.getPassword());

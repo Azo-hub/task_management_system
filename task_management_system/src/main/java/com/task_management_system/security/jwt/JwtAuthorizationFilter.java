@@ -25,7 +25,9 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     private JWTTokenProvider jWTTokenProvider;
 
     private static List<String> skipFilterUrls = Arrays.asList(
-            "/login", "/error", "/signUp", "/forgetPassword");
+            "/login", "/error", "/signUp","/v2/api-docs", "/v3/api-docs", "/v3/api-docs/**",
+            "/swagger-resources", "/swagger-resources/**", "/configuration/ui", "/configuration/security",
+            "/swagger-ui/**", "/webjars/**", "/swagger-ui.html");
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,

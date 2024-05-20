@@ -15,6 +15,9 @@ public class SecurityConstant {
     public static final long LOGIN_LOCK_TIME_DURATION = 24 * 60 * 60 * 1000;
 
     public static final String[] PUBLIC_URLS = {
-            "/login", "/error", "/signUp", "/forgetPassword"
+            "/login", "/error", "/signUp","/v2/api-docs", "/v3/api-docs", "/v3/api-docs/**",
+            "/swagger-resources", "/swagger-resources/**", "/configuration/ui", "/configuration/security",
+            "/swagger-ui/**", "/webjars/**", "/swagger-ui.html"
+
     };
 }

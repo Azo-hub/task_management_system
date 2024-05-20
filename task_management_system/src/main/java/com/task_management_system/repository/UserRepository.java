@@ -11,7 +11,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);
     User findByEmail(String email);
 
-    @Query("UPDATE Userr u SET u.failedAttempt = ?1 WHERE u.username = ?2")
+    @Query("UPDATE users u SET u.failedAttempt = ?1 WHERE u.username = ?2")
     @Modifying
     public void updateFailedAttempt(long failedAttempt, String username);
 
